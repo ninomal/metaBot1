@@ -4,6 +4,7 @@ import time
 from datetime import datetime
 from functools import cache
 from enums import enumsTime
+import numpy as np
 import os
 
 POS = 0  #position bar
@@ -37,7 +38,6 @@ class Products:
         dateDf = pd.DataFrame(date)
         dateConvDf = self.convertDateHour(dateDf)
         #dateConvDf.set_index('time', inplace=True) 
-        print(dateConvDf)
         return dateConvDf 
     
     def tOtimeFrame(self):
@@ -72,7 +72,6 @@ class Products:
         timeDay = time.strftime("%Y-%m-%d", named_tuple)
         return timeDay
     
-    
     def current_day(self):
         if self.HOURSSTART != '':
             day = self.date_of_Day()
@@ -85,7 +84,6 @@ class Products:
             return day_now_conv
     
     #time seconds calculator
-    @cache
     def timeSleepNow(self):
         dateTime = datetime.now()
         timeSecond = 60.0 - dateTime.second 
@@ -128,7 +126,7 @@ class Products:
         lens = 0
         xlist = []
         while len(x) != lens:
-            xlist.append( x.loc[lens])
+            xlist.append( x.iloc[lens])
             lens +=1 
         return xlist
     
